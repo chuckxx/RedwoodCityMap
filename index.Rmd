@@ -1,0 +1,45 @@
+---
+title: "Redwood City Map"
+author: "Charles Smith"
+date: "December 29, 2016"
+output: html_document
+self_contained: no
+---
+
+Coursera "Developing Data Products" Week 2 Project: Create a web page using R Markdown featuring a map created with the leaflet package.  My map shows points of interest in downtown Redwood City, California.  Each button has a link to a website for the location pointed to by the button.
+
+
+```{r setup, include=FALSE}
+# knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+set.seed(2016-12-29)
+
+library(leaflet)
+
+rwcSites <- c("<a href='http://www.redwoodcity.org/'>City Hall</a>",
+              "<a href='http://www.foxrwc.com/'>Fox Theater</a>",
+              "<a href='https://www.box.com/'>Box, Inc.</a>",
+              "<a href='http://www.caltrain.com/stations/redwoodcitystation.html'>Caltrain Station</a>",
+              "<a href='http://alysonmain.com/'>Aly's on Main</a>",
+              "<a href='http://www.milagrosrc.com/#home-1-section'>Milagros</a>",
+              "<a href='http://www.osf.com/'>Old Spaghetti Factory</a>",
+              "<a href='https://www.redwoodcity.org/departments/library'>Library</a>",
+              "<a href='http://www.phodong.com/'>Pho Dong</a>",
+              "<a href='http://www.historysmc.org/'>San Mateo County History Museum</a>",
+              "<a href='http://www.alanascafe.com/redwoodcity.html'>Alana's Cafe</a>",
+              "<a href='http://www.mandaloun.biz/'>Mandaloun</a>",
+              "<a href='http://crouchingtigerrestaurant.com/'>Crouching Tiger</a>")
+
+rwcLatLong <- data.frame(lat=c(37.484821200,37.486328600,37.484806700,37.485430100,37.484863700,
+                               37.484344900,37.485705600,37.483878600,37.486440100,37.486999700,
+                               37.483563600,37.486410400,37.486489700),
+               lng=c(-122.227492800,-122.229629400,-122.228185800,-122.231934000,
+                     -122.225873800,-122.226477100,-122.228632700,-122.227434500,
+                     -122.233628500,-122.229811800,-122.226580000,-122.226841700,
+                     -122.234287900))
+```
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+rwcLatLong %>% leaflet() %>% addTiles() %>% addMarkers(popup=rwcSites)
+```
